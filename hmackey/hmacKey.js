@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 class HmacKey {
   generateHMACKey() {
-    return (this.HMACKey = crypto.randomBytes(32).toString("hex"));
+    return crypto.randomBytes(32).toString("hex");
   }
 
   computeHMAC(move, key) {
