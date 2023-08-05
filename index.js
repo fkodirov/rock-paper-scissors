@@ -1,4 +1,3 @@
-const readline = require("readline");
 const hmacKey = require("./hmackey/hmacKey");
 const gameRules = require("./rules/rules");
 const myGame = require("./game/game");
@@ -24,11 +23,11 @@ const startGame = () => {
     else if (response) {
       console.log(`Your move: ${userMove}`);
       console.log(`Computer move: ${computerMove}`);
-      console.log(key);
       game.getResult(userMove, computerMove, rules.checkResult);
-      console.log(`HMAC key: ${computerHmac}\n`);
+      console.log(`HMAC key: ${key}\n`);
     }
     startGame();
   });
 };
+
 startGame();

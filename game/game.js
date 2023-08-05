@@ -24,6 +24,7 @@ class Game {
       else callback(this.moves[index - 1]);
     });
   }
+
   getResult(userMove, computerMove, checkFn) {
     const indexUser = this.moves.indexOf(computerMove);
     const lastMoves = this.moves
