@@ -20,7 +20,8 @@ class Game {
       if (index == 0) {
         console.log("Bye! Come back soon!");
         rl.close();
-      } else callback(this.moves[index - 1]);
+      } else if (index == "?") callback(index);
+      else callback(this.moves[index - 1]);
     });
   }
   getResult(userMove, computerMove, checkFn) {

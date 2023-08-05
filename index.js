@@ -2,12 +2,14 @@ const readline = require("readline");
 const hmacKey = require("./hmackey/hmacKey");
 const gameRules = require("./rules/rules");
 const myGame = require("./game/game");
+const gameHelp = require("./help/help");
 const startGame = () => {
-  args = process.argv.slice(2);
+  const args = process.argv.slice(2);
   const rules = new gameRules();
   rules.checkArgs(args);
   const game = new myGame(args);
   const hmac = new hmacKey();
+  const help = new gameHelp(args);
   const key = hmac.generateHMACKey();
   const computerMove = game.getComputerMove();
   const computerHmac = hmac.computeHMAC(computerMove, key);
@@ -17,7 +19,9 @@ const startGame = () => {
   console.log("0 - exit");
   console.log("? - help");
   game.getUserMove((userMove) => {
-    if (rules.checkMove(userMove)) {
+    const response = rules.checkMove(userMove);
+    if (response === "help") help.generateTable();
+    else if (response) {
       console.log(`Your move: ${userMove}`);
       console.log(`Computer move: ${computerMove}`);
       console.log(key);

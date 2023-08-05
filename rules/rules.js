@@ -21,7 +21,7 @@ class Rules {
     if (move === undefined) {
       console.log("Invalid input. Please try again.\n");
       return false;
-    }
+    } else if (move == "?") return "help";
     return true;
   }
   checkResult(moves1, moves2, userMove) {
