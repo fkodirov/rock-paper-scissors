@@ -1,5 +1,11 @@
 const crypto = require("crypto");
 class HmacKey {
+  constructor() {
+    if (HmacKey.instance) {
+      return HmacKey.instance;
+    }
+    HmacKey.instance = this;
+  }
   generateHMACKey() {
     return crypto.randomBytes(32).toString("hex");
   }

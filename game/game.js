@@ -3,6 +3,10 @@ const { stdin: input, stdout: output } = require("node:process");
 const rl = readline.createInterface({ input, output });
 class Game {
   constructor(moves) {
+    if (Game.instance) {
+      return Game.instance;
+    }
+    Game.instance = this;
     this.moves = moves;
   }
 
@@ -12,10 +16,22 @@ class Game {
   }
 
   getUserMove(callback) {
-    rl.question("Enter your move: ", (move) => {
-      callback(move);
-      rl.close();
+    rl.question("Enter your move: ", (index) => {
+      if (index == 0) {
+        console.log("Bye! Come back soon!");
+        rl.close();
+      } else callback(this.moves[index - 1]);
     });
+  }
+  getResult(userMove, computerMove, checkFn) {
+    const indexUser = this.moves.indexOf(computerMove);
+    const lastMoves = this.moves
+      .slice(indexUser + 1)
+      .concat(this.moves.slice(0, indexUser));
+    const halfMoves = lastMoves.length / 2;
+    const firstHalf = lastMoves.slice(0, halfMoves);
+    const secondHalf = lastMoves.slice(halfMoves);
+    checkFn(firstHalf, secondHalf, userMove);
   }
 }
 
